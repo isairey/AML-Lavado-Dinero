@@ -1,0 +1,181 @@
+# =====================================================
+# AML Detection System
+# Archivo de configuración principal
+# =====================================================
+
+project:
+  name: AML Detection System
+  version: 1.0.0
+  author: Isai Reyes Peña
+
+# =====================================================
+# Spark
+# =====================================================
+
+spark:
+  app_name: AML Detection
+  master: local[*]
+
+  executor_memory: 2g
+  driver_memory: 2g
+
+  shuffle_partitions: 8
+  parallelism: 8
+
+# =====================================================
+# Archivos
+# =====================================================
+
+paths:
+
+  transactions: data/raw/transactions.csv
+
+  customers: data/raw/customers.csv
+
+  accounts: data/raw/accounts.csv
+
+  features: data/processed/features.parquet
+
+  model: data/models/isolation_forest.pkl
+
+  scaler: data/models/scaler.pkl
+
+# =====================================================
+# Machine Learning
+# =====================================================
+
+model:
+
+  algorithm: IsolationForest
+
+  random_state: 42
+
+  contamination: 0.02
+
+  test_size: 0.20
+
+  n_estimators: 200
+
+# =====================================================
+# Reglas AML
+# =====================================================
+
+aml:
+
+  high_value_transaction: 10000
+
+  very_high_value_transaction: 50000
+
+  max_daily_transactions: 25
+
+  max_daily_amount: 75000
+
+  max_transactions_per_hour: 8
+
+  suspicious_hours:
+    start: 0
+    end: 5
+
+# =====================================================
+# Países de alto riesgo
+# =====================================================
+
+high_risk_countries:
+
+  - North Korea
+  - Iran
+  - Syria
+  - Afghanistan
+  - Russia
+
+# =====================================================
+# Riesgo
+# =====================================================
+
+risk_score:
+
+  threshold: 0.70
+
+  weights:
+
+    amount: 0.35
+
+    country: 0.25
+
+    frequency: 0.20
+
+    anomaly: 0.20
+
+# =====================================================
+# API
+# =====================================================
+
+api:
+
+  host: 0.0.0.0
+
+  port: 8000
+
+  debug: true
+
+# =====================================================
+# Dashboard
+# =====================================================
+
+dashboard:
+
+  refresh_interval: 5
+
+  title: AML Detection Dashboard
+
+# =====================================================
+# Logging
+# =====================================================
+
+logging:
+
+  level: INFO
+
+  file: logs/aml.log
+
+# =====================================================
+# Base de datos (opcional)
+# =====================================================
+
+database:
+
+  host: localhost
+
+  port: 5432
+
+  database: aml_db
+
+  username: postgres
+
+  password: postgres
+
+# =====================================================
+# Alertas
+# =====================================================
+
+alerts:
+
+  email_notifications: false
+
+  save_to_database: true
+
+  generate_report: true
+
+# =====================================================
+# Dashboard
+# =====================================================
+
+colors:
+
+  low: "#2ECC71"
+
+  medium: "#F1C40F"
+
+  high: "#E67E22"
+
+  critical: "#E74C3C"
