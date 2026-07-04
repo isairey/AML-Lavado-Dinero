@@ -96,8 +96,8 @@ config/
 ### 1. Clonar repositorio
 
 ```bash
-git clone https://github.com/tuusuario/aml-detection-system.git
-cd aml-detection-system
+git clone https://github.com/isairey/AML-Lavado-Dinero.git
+cd AML-Lavado-Dinero
 ```
 
 ---
