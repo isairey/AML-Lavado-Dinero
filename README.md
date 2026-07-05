@@ -252,9 +252,9 @@ Incluye:
 
 ---
 
-## 👨‍💻 Autor
+## 👨‍💻 Desarrollador
 
-Isai Reyes Peña
+**Isai Reyes Peña - FullStack Developer**
 
 ---
 
