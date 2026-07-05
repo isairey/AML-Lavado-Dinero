@@ -1,0 +1,99 @@
+version: "3.9"
+
+services:
+
+  # ==========================================================
+  # PostgreSQL
+  # ==========================================================
+  postgres:
+    image: postgres:16
+    container_name: aml_postgres
+
+    restart: always
+
+    environment:
+      POSTGRES_DB: aml_db
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+
+    ports:
+      - "5432:5432"
+
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+    networks:
+      - aml_network
+
+  # ==========================================================
+  # FastAPI
+  # ==========================================================
+  api:
+    build: .
+
+    container_name: aml_api
+
+    restart: always
+
+    depends_on:
+      - postgres
+
+    ports:
+      - "8000:8000"
+
+    environment:
+      DB_HOST: postgres
+      DB_PORT: 5432
+      DB_NAME: aml_db
+      DB_USER: postgres
+      DB_PASSWORD: postgres
+
+    volumes:
+      - .:/app
+
+    networks:
+      - aml_network
+
+  # ==========================================================
+  # Streamlit Dashboard
+  # ==========================================================
+  dashboard:
+    build: .
+
+    container_name: aml_dashboard
+
+    restart: always
+
+    depends_on:
+      - api
+
+    command: >
+      streamlit run src/dashboard/dashboard.py
+      --server.port=8501
+      --server.address=0.0.0.0
+
+    ports:
+      - "8501:8501"
+
+    volumes:
+      - .:/app
+
+    networks:
+      - aml_network
+
+# ==========================================================
+# Volúmenes
+# ==========================================================
+
+volumes:
+
+  postgres_data:
+
+# ==========================================================
+# Red
+# ==========================================================
+
+networks:
+
+  aml_network:
+    driver: bridge
