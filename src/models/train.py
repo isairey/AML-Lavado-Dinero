@@ -16,9 +16,8 @@ import pandas as pd
 
 from config.config import FEATURES_FILE
 
-from models.anomaly_detection import AnomalyDetector
-from models.evaluate import ModelEvaluator
-
+from src.models.anomaly_detection import AnomalyDetector
+from src.models.evaluate import ModelEvaluator
 
 # ==========================================================
 # CARGAR FEATURES
